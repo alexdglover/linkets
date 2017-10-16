@@ -1,0 +1,17 @@
+{
+  "name": "Linkets",
+  "author": {
+    "name": "Alex Glover",
+    "email": "alex@alexdglover.com",
+    "url": "http://www.alexdglover.com"
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": {
+    "support": {
+      "ticket_sidebar": "assets/iframe.html"
+    }
+  },
+  "version": "1.0",
+  "frameworkVersion": "2.0"
+}
