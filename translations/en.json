@@ -1,8 +1,8 @@
 {
   "app": {
-    "name": "Zen Tunes",
-    "short_description": "Play the famous zen tunes in your help desk.",
-    "long_description": "Play the famous zen tunes in your help desk and \n listen to the beats it has to offer.",
+    "name": "Linkets",
+    "short_description": "Link tinkets with Linkets!",
+    "long_description": "Link existing tickets to one another to show relationship, like 'Blocks' or 'Parent' to help your agents find relevant tickets and information.",
     "installation_instructions": "Simply click install."
   }
 }
