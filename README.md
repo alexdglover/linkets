@@ -1,3 +1,8 @@
+# THIS REPO HAS MOVED
+Linkets has been accepted by Zendesk Labs and this repo has been moved to their org (see https://github.com/zendesklabs/linkets/). Please create all issues/feature requests/PR against that repo instead. 
+
+This repo has been archived.
+
 # Linkets
 
 App/widget for linking Zendesk tickets. Tickets can be linked together with specific relationships,
