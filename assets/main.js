@@ -7,13 +7,27 @@ $(function() {
   client.invoke('resize', { width: '100%', height: '400px' });
   client.context().then(
     function(data){
-      console.log(data);
       origin = 'https://' + data['account']['subdomain'] + '.zendesk.com';
-      console.log(origin);
+      if (debug) {
+        console.log(data);
+        console.log(origin);
+      }
     }
   )
-  console.log(origin);
   processLinkedTickets();
+
+  $('.get_help').on('click', showDeflectionModal);
+  function showDeflectionModal(){
+    client.invoke('instances.create', {
+      location: 'modal',
+      url: 'assets/deflection-modal.html'
+    }).then(function(modalContext) {
+      // The modal is on the screen, now resize it
+      var modalClient = client.instance(modalContext['instances.create'][0].instanceGuid);
+      modalClient.invoke('resize', { width: '40vw', height: '100%' });
+    });
+  }
+
 });
 
 function processLinkedTickets() {
@@ -23,8 +37,8 @@ function processLinkedTickets() {
 
   var client = ZAFClient.init();
   client.get('ticket.tags').then(
-  	function(data) {
-  		var tags = data['ticket.tags'];
+    function(data) {
+      var tags = data['ticket.tags'];
       var linkedTickets = parseLinkedTickets(tags);
       if (linkedTickets.length == 0) {
         showNoLinkedTickets();
@@ -32,7 +46,7 @@ function processLinkedTickets() {
       else {
         getLinkedTicketDetail(client, linkedTickets);
       }
-  	}
+    }
   );
 }
 
@@ -43,7 +57,7 @@ function parseLinkedTickets(tags) {
       linkedTickets.push(tags[i]);
     }
   }
-  if(debug){
+  if (debug) {
     console.log('Linked tickets:')
     console.log(linkedTickets);
   }
@@ -56,7 +70,7 @@ function getLinkedTicketDetail(client, linkedTickets) {
     raw_ids.push(linkedTickets[i].split(':')[2]);
   }
   raw_ids = raw_ids.join(',')
-  if(debug){
+  if (debug) {
     console.log('Raw tickets IDs are:');
     console.log(raw_ids);
   }
@@ -68,7 +82,7 @@ function getLinkedTicketDetail(client, linkedTickets) {
 
   client.request(settings).then(
     function(data) {
-      if(debug){
+      if (debug) {
         console.log('Raw API return value:');
         console.log(data);
         console.log('Calling showLinkedTickets');
@@ -84,7 +98,7 @@ function getLinkedTicketDetail(client, linkedTickets) {
 function showLinkedTickets(linkedTickets, data) {
   var display_data = {};
   for (i=0; i < linkedTickets.length; i++){
-    if(debug){
+    if (debug) {
       console.log('Current linkedTicket object:');
       console.log(linkedTickets[i]);
     }
@@ -93,7 +107,7 @@ function showLinkedTickets(linkedTickets, data) {
     var ticket_data = {}
     for (x=0; x < data.length; x++) {
       if (data[x]['id'] == id) {
-        if(debug){
+        if (debug) {
           console.log('Found matching ticket in data');
           console.log(data[x]);
         }
@@ -104,12 +118,11 @@ function showLinkedTickets(linkedTickets, data) {
       'id': id,
       'relationship': translateRelationship(relationship),
       'relationshipCode': relationship,
-      'subject': ticket_data['subject'],
-      'browser_url': origin + '/agent/tickets/' + id
+      'subject': ticket_data['subject']
     }
   }
 
-  if(debug){ console.log(display_data); }
+  if (debug) { console.log(display_data); }
   var display_info = {
     'ticket': display_data
   }
@@ -138,24 +151,28 @@ function showNoLinkedTickets() {
 }
 
 function getSearchResults() {
+  $('#candidate-ticket-loading-icon').show()
+
   var client = ZAFClient.init();
   var query = $("#linked-ticket-search").val();
   var settings = {
-    url: '/api/v2/search.json?query=' + query,
+    url: '/api/v2/search.json?query=type:ticket ' + query,
     type: 'GET',
     dataType: 'json',
   };
 
   client.request(settings).then(
     function(data) {
-      if(debug){
+      if (debug) {
         console.log('Raw API return value:');
         console.log(data);
         console.log('Calling showSearchResults');
       }
+      $('#candidate-ticket-loading-icon').hide();
       showSearchResults(data['results']);
     },
     function(response) {
+      $('#candidate-ticket-loading-icon').hide();
       showApiError(response);
     }
   );
@@ -163,16 +180,15 @@ function getSearchResults() {
 
 function showSearchResults(data) {
   var display_data = {};
-  if(debug){ console.log(data); }
+  if (debug) { console.log(data); }
   for (i=0; i < data.length; i++){
     display_data[data[i]['id']] = {
       'id': data[i]['id'],
-      'subject': data[i]['subject'],
-      'browser_url': origin + '/agent/tickets/' + data[i]['id']
+      'subject': data[i]['subject']
     }
   }
 
-  if(debug){ console.log(display_data); }
+  if (debug) { console.log(display_data); }
   var display_info = {
     'ticket': display_data
   }
@@ -186,13 +202,13 @@ function linkTicket(id, relationship) {
   var client = ZAFClient.init();
   client.get('ticket.id').then(function(data) {
     var this_ticket_id = data['ticket.id'];
-    if(debug){
+    if (debug) {
       console.log('External ID is ' + id + ' and inverted relationship is ' + invertRelationship(relationship));
       console.log('This ticket ID is ' + this_ticket_id + ' and relationship is ' + relationship);
     }
     var externalTicketTagText = 'lnkt:' + invertRelationship(relationship) + ':' + this_ticket_id;
     var thisTicketTagText = 'lnkt:' + relationship + ':' + id;
-    if(debug){
+    if (debug) {
       console.log(externalTicketTagText);
       console.log(thisTicketTagText);
     }
@@ -208,12 +224,16 @@ function linkTicket(id, relationship) {
       })
     }).then(
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
       },
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
         errors++;
       }
     )
@@ -227,20 +247,23 @@ function linkTicket(id, relationship) {
       })
     }).then(
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
       },
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
         errors++;
       }
     )
 
     if(errors == 0){
       $("#candidate-tickets").html('<h2>Linked successfully!</h2>');
-      $('#content').html('<h3>Loading...</h3>');
-      setTimeout(processLinkedTickets, 3000);
+      setTimeout(processLinkedTickets, 1500);
     }
     else {
       $("#candidate-tickets").html('<h2>Error when linking tickets!</h2>');
@@ -252,13 +275,13 @@ function unlinkTicket(id, relationship) {
   var client = ZAFClient.init();
   client.get('ticket.id').then(function(data) {
     var this_ticket_id = data['ticket.id'];
-    if(debug){
+    if (debug) {
       console.log('External ID is ' + id + ' and inverted relationship is ' + invertRelationship(relationship));
       console.log('This ticket ID is ' + this_ticket_id + ' and relationship is ' + relationship);
     }
     var externalTicketTagText = 'lnkt:' + invertRelationship(relationship) + ':' + this_ticket_id;
     var thisTicketTagText = 'lnkt:' + relationship + ':' + id;
-    if(debug){
+    if (debug) {
       console.log(externalTicketTagText);
       console.log(thisTicketTagText);
     }
@@ -274,12 +297,16 @@ function unlinkTicket(id, relationship) {
       })
     }).then(
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
       },
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
         errors++;
       }
     )
@@ -293,29 +320,28 @@ function unlinkTicket(id, relationship) {
       })
     }).then(
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
       },
       function(data, response) {
-        console.log(data);
-        console.log(response);
+        if (debug) {
+          console.log(data);
+          console.log(response);
+        }
         errors++;
       }
     )
 
     if(errors == 0){
       $("#candidate-tickets").html('<h2>Unlinked successfully!</h2>');
-      $('#content').html('<h3>Loading...</h3>');
-      setTimeout(processLinkedTickets, 3000);
+      setTimeout(processLinkedTickets, 1500);
     }
     else {
       $("#candidate-tickets").html('<h2>Error when unlinking tickets!</h2>');
     }
   })
-}
-
-function showLoadingIndicator() {
-  $('#content').html('<h3>Loading...</h3>');
 }
 
 function invertRelationship(relationshipCode) {
@@ -340,4 +366,9 @@ function translateRelationship(relationshipCode) {
   }
 
   return relationships[relationshipCode]
+}
+
+function openTicket(id){
+  var client = ZAFClient.init();
+  client.invoke('routeTo', 'ticket', id);
 }

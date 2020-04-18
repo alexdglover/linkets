@@ -1,9 +1,8 @@
 {
-  "name": "Linkets",
   "author": {
     "name": "Alex Glover",
-    "email": "alex@alexdglover.com",
-    "url": "http://www.alexdglover.com"
+    "email": "alexdglover@gmail.com",
+    "url": "https://github.com/alexdglover/linkets"
   },
   "defaultLocale": "en",
   "private": false,
@@ -12,6 +11,6 @@
       "ticket_sidebar": "assets/iframe.html"
     }
   },
-  "version": "1.0",
+  "version": "1.0.5",
   "frameworkVersion": "2.0"
 }

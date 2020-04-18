@@ -1,12 +1,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet"> -->
-  <!-- <link rel="stylesheet" href="https://assets.zendesk.com/apps/sdk-assets/css/0/zendesk_garden.css" type="text/css"> -->
   <link rel="stylesheet" href="https://assets.zendesk.com/apps/sdk-assets/css/1/zendesk_garden.css" type="text/css">
-  <link href="garden-index.css" rel="stylesheet">
   <link href="main.css" rel="stylesheet">
+  <link href="garden-index.css" rel="stylesheet">
   <link href="garden-table.css" rel="stylesheet">
+  <link href="loaders.css" rel="stylesheet">
 </head>
 <body>
 
@@ -20,12 +19,15 @@
         Search
       </button>
     </div>
+    <div id="candidate-ticket-loading-icon" class="loader" style="display: none;"></div>
     <div class="content" id="candidate-tickets"></div>
   </div>
+
   <div class="content" id="content"></div>
 
   <footer>
     <a href="https://github.com/alexdglover/linkets/issues" target="_blank">Report bugs</a>
+    <img class="c-btn__icon get_help" style="float: right;" src="questionmark.png">
   </footer>
 
   <script id="candidate-ticket-template" type="text/x-handlebars-template">
@@ -42,7 +44,7 @@
       {{else}}
       <tr class="c-table__row">
       {{/everyOther}}
-        <td class="c-table__row__cell"><a href="{{browser_url}}" target="_blank">{{id}} - {{subject}}</a></td>
+        <td class="c-table__row__cell"><a href="#" onclick="openTicket('{{id}}')">{{id}} - {{subject}}</a></td>
         <td class="c-table__row__cell">
           <div class="l-btn-group u-mb-lg">
             <button class="c-btn js-menu">
@@ -80,7 +82,7 @@
       <tr class="c-table__row">
       {{/everyOther}}
         <td class="c-table__row__cell">{{relationship}}</td>
-        <td class="c-table__row__cell"><a href="{{browser_url}}" target="_blank">{{id}} - {{subject}}</a></td>
+        <td class="c-table__row__cell"><a href="#" onclick="openTicket('{{id}}')">{{id}} - {{subject}}</a></td>
         <td class="c-table__row__cell" style="text-align: right;">
           <button class="c-btn c-btn--primary c-btn--danger c-btn--icon" onclick="unlinkTicket('{{id}}', '{{relationshipCode}}')">
             <p style="color:white;">X</p>

@@ -1,8 +1,3 @@
-# THIS REPO HAS MOVED
-Linkets has been accepted by Zendesk Labs and this repo has been moved to their org (see https://github.com/zendesklabs/linkets/). Please create all issues/feature requests/PR against that repo instead. 
-
-This repo has been archived.
-
 # Linkets
 
 App/widget for linking Zendesk tickets. Tickets can be linked together with specific relationships,
@@ -12,11 +7,11 @@ limited by the tag field constraint of 5096 characters, otherwise there are no l
 
 Built with ZAFv2.
 
-"Linkets" is a portmanteau of "linked ticktets."
+"Linkets" is a portmanteau of "linked tickets."
 
 ## Issues
 
-Please submit bug reports/issues on the [GitHub repo](https://github.com/aglover-zendesk/linkets/issues). Pull requests are welcome.
+Please submit bug reports/issues on the [GitHub repo](https://github.com/alexdglover/linkets/issues). Pull requests are welcome.
 
 ### Screenshot(s):
 ![image](https://user-images.githubusercontent.com/25018339/31585812-a62887c2-b18d-11e7-87eb-76c8e412d0f1.png)
