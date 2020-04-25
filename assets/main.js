@@ -360,8 +360,8 @@ function translateRelationship(relationshipCode) {
   var relationships = {
     'blckdby': 'Blocked By',
     'blcks': 'Blocks',
-    'prnt': 'Is Parent',
-    'chld': 'Is Child',
+    'prnt': 'Parent',
+    'chld': 'Child',
     'rlts': 'Relates To'
   }
 
