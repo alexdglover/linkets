@@ -1,18 +1,18 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://assets.zendesk.com/apps/sdk-assets/css/1/zendesk_garden.css" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-tables@4.0.19/dist/index.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-buttons@7.0.19/dist/index.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-bedrock@8.0.0/dist/index.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-menus@9.0.20/dist/index.min.css">
   <link href="main.css" rel="stylesheet">
-  <link href="garden-index.css" rel="stylesheet">
-  <link href="garden-table.css" rel="stylesheet">
   <link href="loaders.css" rel="stylesheet">
 </head>
 <body>
 
   <div class="content">
-    <h3>Create new link</h3>
     <div>
-      <input class="c-txt__input" placeholder="Search for issues to link" type="text" id="linked-ticket-search" />
+      <input style="width: 100%" class="c-txt__input" placeholder="Search for issues to link" type="text" id="linked-ticket-search" />
     </div>
     <div style="text-align: center; padding-top: 10px;">
       <button class="c-btn c-btn--primary" type="button" onclick="getSearchResults()">
@@ -54,8 +54,8 @@
               <ul aria-hidden="true" class="c-menu c-menu--up" role="menu" style="right:136px; top:-32px; min-width: 120px;">
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'blcks')" role="menuitem">Blocks</li>
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'blckdby')" role="menuitem">Blocked By</li>
-                <li class="c-menu__item" onclick="linkTicket('{{id}}', 'prnt')" role="menuitem">Is Parent</li>
-                <li class="c-menu__item" onclick="linkTicket('{{id}}', 'chld')" role="menuitem">Is Child</li>
+                <li class="c-menu__item" onclick="linkTicket('{{id}}', 'prnt')" role="menuitem">Parent</li>
+                <li class="c-menu__item" onclick="linkTicket('{{id}}', 'chld')" role="menuitem">Child</li>
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'rlts')" role="menuitem">Relates To</li>
               </ul>
             </div>
@@ -114,9 +114,9 @@
     });
   </script>
   <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
-  <script src="garden-svg4everybody.js"></script>
-  <script src="garden-index.js"></script>
-  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+  <script type="text/javascript" src="garden-svg4everybody.js"></script>
+  <script type="text/javascript" src="garden-index.js"></script>
+  <script type="text/javascript" src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
 </body>
 

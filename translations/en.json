@@ -2,7 +2,7 @@
   "app": {
     "name": "Linkets",
     "short_description": "Link tinkets with Linkets!",
-    "long_description": "Link existing tickets to one another to show relationship, like 'Blocks' or 'Parent' to help your agents find relevant tickets and information.",
-    "installation_instructions": "Simply click install."
+    "long_description": "alexdglover is just one dude, trying to improve the world one app at a time.\nLinkets empowers your agents to link existing tickets to one another to show relationships, like when one ticket 'Blocks' another, or one ticket is a 'Parent' of another. This helps your agents find relevant tickets and information quickly! With visibility to related tickets and issues, your customer support agents will present a more unified, more cohesive experience to your customers.",
+    "installation_instructions": "Simply click *Install* button on the marketplace to install the app. Once the app is installed, Linkets will be displayed automatically on the right sidebar when viewing tickets. No configuration necessary!"
   }
 }
