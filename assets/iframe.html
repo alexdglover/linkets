@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-buttons@7.0.19/dist/index.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-bedrock@8.0.0/dist/index.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-menus@9.0.20/dist/index.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="main.css" rel="stylesheet">
   <link href="loaders.css" rel="stylesheet">
 </head>
@@ -25,33 +26,14 @@
 
   <div class="content" id="content"></div>
 
-  <footer>
-    <a href="https://github.com/alexdglover/linkets/issues" target="_blank">Report bugs</a>
-    <img class="c-btn__icon get_help" style="float: right;" src="questionmark.png">
-  </footer>
-
   <script id="candidate-ticket-template" type="text/x-handlebars-template">
-    <table class="c-table">
-      <thead>
-        <tr class="c-table__row c-table__row--header">
-          <th class="c-table__row__cell c-table__row__cell--min" style="text-align: left;">Ticket</th>
-          <th class="c-table__row__cell c-table__row__cell--min" style="text-align: left;">Link?</th>
-        </tr>
-      </thead>
+      <div class="linkedHeader">Possible Ticket(s)</div>
       {{#each ticket}}
-      {{#everyOther @index 2 }}
-      <tr class="c-table__row c-table__row--stripe">
-      {{else}}
-      <tr class="c-table__row">
-      {{/everyOther}}
-        <td class="c-table__row__cell"><a href="#" onclick="openTicket('{{id}}')">{{id}} - {{subject}}</a></td>
-        <td class="c-table__row__cell">
+        <div class="possibleTickets">
           <div class="l-btn-group u-mb-lg">
-            <button class="c-btn js-menu">
-              Link
-            </button>
+            <button class="linkButton js-menu"><img src="link.png" alt=""></button>
             <div class="u-position-relative">
-              <ul aria-hidden="true" class="c-menu c-menu--up" role="menu" style="right:136px; top:-32px; min-width: 120px;">
+              <ul aria-hidden="true" class="c-menu c-menu--up" role="menu" style="left:50px; top:-75px; min-width: 140px;">
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'blcks')" role="menuitem">Blocks</li>
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'blckdby')" role="menuitem">Blocked By</li>
                 <li class="c-menu__item" onclick="linkTicket('{{id}}', 'prnt')" role="menuitem">Parent</li>
@@ -60,48 +42,34 @@
               </ul>
             </div>
           </div>
-        </td>
-      </tr>
+          <div>
+            <div>Ticket #{{id}} ({{status}})</div>
+            <div><a href="#" onclick="openTicket('{{id}}')">{{subject}}</a></div>
+          </div>
+        </div>
       {{/each}}
-    </table>
   </script>
 
   <script id="linked-ticket-template" type="text/x-handlebars-template">
-    <table class="c-table">
-      <thead>
-        <tr class="c-table__row c-table__row--header">
-          <th class="c-table__row__cell c-table__row__cell--min" style="text-align: left; width: 8px;">Type</th>
-          <th class="c-table__row__cell c-table__row__cell--min" style="text-align: left;">Ticket</th>
-          <th class="c-table__row__cell c-table__row__cell--min" style="text-align: left; width: 1px;">Un-Link</th>
-        </tr>
-      </thead>
+      <div class="linkedHeader">Linked Ticket(s)</div>
       {{#each ticket}}
-      {{#everyOther @index 2 }}
-      <tr class="c-table__row c-table__row--stripe">
-      {{else}}
-      <tr class="c-table__row">
-      {{/everyOther}}
-        <td class="c-table__row__cell">{{relationship}}</td>
-        <td class="c-table__row__cell"><a href="#" onclick="openTicket('{{id}}')">{{id}} - {{subject}}</a></td>
-        <td class="c-table__row__cell" style="text-align: right;">
-          <button class="c-btn c-btn--primary c-btn--danger c-btn--icon" onclick="unlinkTicket('{{id}}', '{{relationshipCode}}')">
-            <p style="color:white;">X</p>
-          </button>
-        </td>
-      </tr>
+        <div class="ticketContainer">
+          <div><b>[{{relationship}}]</b> Ticket #{{id}}
+            <button class="unlinkButton" onclick="unlinkTicket('{{id}}', '{{relationshipCode}}')"><img src="unlink.png" alt=""></button>
+          </div>
+          <div>Status: {{status}}</div>
+          <div><a href="#" onclick="openTicket('{{id}}')">{{subject}}</a></div>
+        </div>
       {{/each}}
-    </table>
   </script>
 
   <script id="error-template" type="text/x-handlebars-template">
     <p>Status - {{status}}</p>
     <p>{{statusText}} error.</p>
-    <p>If you believe this is in error, please report a bug at the link below.</p>
   </script>
 
   <script id="no-ticket-template" type="text/x-handlebars-template">
-    <p>There are no tickets linked to the current ticket</p>
-    <p>If you believe this is in error, please report a bug at the link below.</p>
+    <p style="text-align: center;">There are no linked tickets</p>
   </script>
 
   <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>

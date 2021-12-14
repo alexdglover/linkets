@@ -1,7 +1,37 @@
 .content {
+  width: 100%;
   margin: 10px 0px;
 }
 
-.deflection_msg {
-  color: #555;
+.possibleTickets {
+  display: flex;
+  border-bottom: dotted 1px;
+}
+
+.linkedHeader {
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: dotted 1px;
+  padding-bottom: 5px;
+}
+
+.ticketContainer {
+  padding: 5px 10px 5px 10px;
+  border-bottom: dotted 1px;
+}
+
+.unlinkButton {
+  float: right;
+  border: 0;
+  background: none;
+  width: 20px;
+}
+
+.linkButton {
+  border: 0;
+  background: none;
+  width: 30px;
+  margin: 5px 15px 5px 15px;
+  align-items: center;
+  justify-content: center;
 }
