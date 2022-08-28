@@ -10,6 +10,7 @@ assignees: ''
 **Before you submit**
 - [ ] I understand Zendesk does not support this app, nor does Zendesk pay for this app
 - [ ] I understand the author does not get paid to write or support this app, he just tries to provide a useful app
+- [ ] I understand that Linkets does not work on Closed tickets
 
 **Describe the bug**
 A clear and concise description of what the bug is.
